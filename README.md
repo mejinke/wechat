@@ -1,7 +1,7 @@
 #一、安装
 
 ```
-composer require mejinke/merrdb
+composer require mejinke/wechat
 ```
 
 #二、快速使用
