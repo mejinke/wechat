@@ -32,7 +32,7 @@ class Menu extends Wechat
      */
     public function create(\Wechat\Component\Menu $menu)
     {
-        $url = ' https://api.weixin.qq.com/cgi-bin/menu/create?access_token='. $this->getAccessToken();
+        $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='. $this->getAccessToken();
         return $this->parseResult('menu_create', Request::post($url, $menu->toArray()));
     }
 
@@ -44,7 +44,7 @@ class Menu extends Wechat
      */
     public function delete()
     {
-        $url = ' https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='. $this->getAccessToken();
+        $url = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token='. $this->getAccessToken();
         return $this->parseResult('menu_delete', Request::get($url));
     }
 
