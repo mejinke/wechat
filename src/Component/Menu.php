@@ -102,7 +102,7 @@ class Menu extends Component
 
     public function toArray()
     {
-        [
+        return [
             'button' => $this->values
         ];
     }
