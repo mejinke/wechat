@@ -90,6 +90,22 @@ $pay->notifyProcess(function($data){
 
 ```
 
+##4、自定义菜单
+```
+$menu = new \Wechat\Component\Menu();
+
+//添加一个View Button
+$id = $menu->addViewButton('官网', 'http://www.xxxx.com');
+//添加子菜单
+$menu->addViewButton('主页', 'http://www.xxxx.com', $id);
+
+//添加一个Click Button
+$menu->addClickButton('最新', 'news');
+
+//提交创建
+$wechat->service('Menu')->create($menu);
+```
+
 #三、配置项
 
 
