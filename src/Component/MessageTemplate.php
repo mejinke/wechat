@@ -19,7 +19,7 @@ class MessageTemplate extends Component
      */
     public function getId()
     {
-        return $this->values['template_id'];
+        return $this->get('template_id');
     }
 
     /**
@@ -41,7 +41,7 @@ class MessageTemplate extends Component
      */
     public function getTouser()
     {
-        return $this->values['touser'];
+        return $this->get('touser');
     }
 
     /**
@@ -63,7 +63,7 @@ class MessageTemplate extends Component
      */
     public function getUrl()
     {
-        return $this->values['url'];
+        return $this->get('url');
     }
 
     /**
@@ -85,7 +85,7 @@ class MessageTemplate extends Component
      */
     public function getData()
     {
-        return $this->values['data'];
+        return $this->get('data');
     }
 
     /**

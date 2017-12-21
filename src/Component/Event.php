@@ -20,7 +20,7 @@ class Event extends Component
      */
     public function getToUserName()
     {
-        return $this->values['ToUserName'];
+        return $this->get('ToUserName');
     }
 
     /**
@@ -31,7 +31,7 @@ class Event extends Component
      */
     public function getFromUserName()
     {
-        return $this->values['FromUserName'];
+        return $this->get('FromUserName');
     }
 
     /**
@@ -42,7 +42,7 @@ class Event extends Component
      */
     public function getCreateTime()
     {
-        return $this->values['CreateTime'];
+        return $this->get('CreateTime');
     }
 
     /**
@@ -50,18 +50,18 @@ class Event extends Component
      */
     public function getMsgType()
     {
-        return $this->values['MsgType'];
+        return $this->get('MsgType');
     }
 
     /**
      *
      * 事件类型，subscribe(订阅)、unsubscribe(取消订阅)、SCAN(扫码关注)、LOCATION、
      *
-     * @var
+     * @return string/null
      */
     public function getEvent()
     {
-        return $this->values['Event'];
+        return $this->get('Event');
     }
 
     /**
@@ -69,11 +69,11 @@ class Event extends Component
      * 扫描带参数二维码事件
      * 事件KEY值，qrscene_为前缀，后面为二维码的参数值
      *
-     * @var
+     * @return string/null
      */
     public function getEventKey()
     {
-        return $this->values['EventKey'];
+        return $this->get('EventKey');
     }
 
     /**
@@ -81,11 +81,11 @@ class Event extends Component
      * 扫描带参数二维码事件
      * 二维码的ticket，可用来换取二维码图片
      *
-     * @var
+     * @return string/null
      */
     public function getTicket()
     {
-        return $this->values['Ticket'];
+        return $this->get('Ticket');
     }
 
 
@@ -93,32 +93,32 @@ class Event extends Component
      *
      * 地理位置纬度
      *
-     * @var
+     * @return string/null
      */
     public function getLatitude()
     {
-        return $this->values['Latitude'];
+        return $this->get('Latitude');
     }
 
     /**
      *
      * 地理位置经度
      *
-     * @var
+     * @return string/null
      */
     public function getLongitude()
     {
-        return $this->values['Longitude'];
+        return $this->get('Longitude');
     }
 
     /**
      *
      * 地理位置精度
      *
-     * @var
+     * @return string/null
      */
     public function getPrecision()
     {
-        return $this->values['Precision'];
+        return $this->get('Precision');
     }
 }

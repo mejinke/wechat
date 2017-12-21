@@ -31,7 +31,7 @@ class PayOrder extends Component
      */
     public function getAppId()
     {
-        return $this->values['appid'];
+        return $this->get('appid');
     }
 
     /**
@@ -53,7 +53,7 @@ class PayOrder extends Component
      */
     public function getMchId()
     {
-        return $this->values['mch_id'];
+        return $this->get('mch_id');
     }
 
     /**
@@ -75,7 +75,7 @@ class PayOrder extends Component
      */
     public function getDeviceInfo()
     {
-        return $this->values['device_info'];
+        return $this->get('device_info');
     }
 
     /**
@@ -97,7 +97,7 @@ class PayOrder extends Component
      */
     public function getNonceStr()
     {
-        return $this->values['nonce_str'];
+        return $this->get('nonce_str');
     }
 
     /**
@@ -119,7 +119,7 @@ class PayOrder extends Component
      */
     public function getBody()
     {
-        return $this->values['body'];
+        return $this->get('body');
     }
 
     /**
@@ -141,7 +141,7 @@ class PayOrder extends Component
      */
     public function getDetail()
     {
-        return $this->values['detail'];
+        return $this->get('detail');
     }
 
     /**
@@ -162,7 +162,7 @@ class PayOrder extends Component
      */
     public function getAttach()
     {
-        return $this->values['attach'];
+        return $this->get('attach');
     }
 
     /**
@@ -184,7 +184,7 @@ class PayOrder extends Component
      */
     public function getOutTradeNo()
     {
-        return $this->values['out_trade_no'];
+        return $this->get('out_trade_no');
     }
 
     /**
@@ -206,7 +206,7 @@ class PayOrder extends Component
      */
     public function getFeeType()
     {
-        return $this->values['fee_type'];
+        return $this->get('fee_type');
     }
 
     /**
@@ -228,7 +228,7 @@ class PayOrder extends Component
      */
     public function getTotalFee()
     {
-        return $this->values['total_fee'];
+        return $this->get('total_fee');
     }
 
     /**
@@ -250,7 +250,7 @@ class PayOrder extends Component
      */
     public function getSpbillCreateIp()
     {
-        return $this->values['spbill_create_ip'];
+        return $this->get('spbill_create_ip');
     }
 
     /**
@@ -272,7 +272,7 @@ class PayOrder extends Component
      */
     public function getTimeStart()
     {
-        return $this->values['time_start'];
+        return $this->get('time_start');
     }
 
     /**
@@ -294,7 +294,7 @@ class PayOrder extends Component
      */
     public function getTimeExpire()
     {
-        return $this->values['time_expire'];
+        return $this->get('time_expire');
     }
 
     /**
@@ -316,7 +316,7 @@ class PayOrder extends Component
      */
     public function getGoodsTag()
     {
-        return $this->values['goods_tag'];
+        return $this->get('goods_tag');
     }
 
     /**
@@ -338,7 +338,7 @@ class PayOrder extends Component
      */
     public function getNotifyUrl()
     {
-        return $this->values['notify_url'];
+        return $this->get('notify_url');
     }
 
     /**
@@ -360,7 +360,7 @@ class PayOrder extends Component
      */
     public function getTradeType()
     {
-        return $this->values['trade_type'];
+        return $this->get('trade_type');
     }
 
     /**
@@ -382,7 +382,7 @@ class PayOrder extends Component
      */
     public function getProductId()
     {
-        return $this->values['product_id'];
+        return $this->get('product_id');
     }
 
     /**
@@ -404,7 +404,7 @@ class PayOrder extends Component
      */
     public function getOpenid()
     {
-        return $this->values['openid'];
+        return $this->get('openid');
     }
 
     /**
@@ -426,6 +426,6 @@ class PayOrder extends Component
      */
     public function getSign()
     {
-        return $this->values['sign'];
+        return $this->get('sign');
     }
 }
