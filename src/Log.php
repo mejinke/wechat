@@ -19,6 +19,6 @@ class Log
     public static function write($filename, $content)
     {
         $content = "[".date('Y-m-d H:i:s')."]   -   ".$content."\n";
-        file_put_contents($filename, $content, FILE_APPEND);
+        file_put_contents($filename.'/'.date('Y-m-d').'.log', $content, FILE_APPEND|LOCK_EX);
     }
 }

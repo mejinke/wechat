@@ -80,9 +80,18 @@ class Wechat
         return $r == false ? [] : $r;
     }
 
+    /**
+     *
+     * 写入缓存信息
+     *
+     * @param $filename
+     * @param $data
+     *
+     * @return bool
+     */
     private function writeCacheFile($filename, $data)
     {
-        file_put_contents($filename, json_encode($data));
+        file_put_contents($filename, json_encode($data), LOCK_EX);
         return true;
     }
 
@@ -148,7 +157,6 @@ class Wechat
         $dataJson = $this->readCacheFile();
         $dataJson['jsapiTicket'] = $data;
         $this->writeCacheFile($this->options['cache_file'], $dataJson);
-        //file_put_contents($this->options['cache_file'], json_encode($dataJson));
 
         return $data['jsapi_ticket'];
     }
@@ -214,9 +222,9 @@ class Wechat
      */
     protected function writeDebug($content)
     {
-        if (empty($this->options['log_file']) == false)
+        if (empty($this->options['log_dir']) == false)
         {
-            Log::write($this->options['log_file'], 'INFO : '.$content);
+            Log::write($this->options['log_dir'], 'INFO : '.$content);
         }
     }
 
@@ -230,9 +238,9 @@ class Wechat
      */
     protected function exception($content)
     {
-        if (empty($this->options['log_file']) == false)
+        if (empty($this->options['log_dir']) == false)
         {
-            Log::write($this->options['log_file'], 'ERROR : '.$content);
+            Log::write($this->options['log_dir'], 'ERROR : '.$content);
         }
 
         throw new WechatException($content);

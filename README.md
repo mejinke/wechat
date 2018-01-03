@@ -9,15 +9,30 @@ composer require mejinke/wechat
 ```
 require __DIR__.'/../vendor/autoload.php';
 
-//例实化
+//配置
 $options = [
 	'appid' => 'xx',
 	'appsecret' => 'xx',
 	'mchid' => 'xx',
 	'key' => 'xx'
 ];
+//例实化
 $wechat = new \Wechat\Wechat($options);
 ```
+### 配置项：
+
+
+|   Name         | Default    | Desc         | 
+| -------------- | ---------- | ------------------------------------------|
+| appid          | -          | 微信appid                                 |
+| appsecret      | -          | app secret                                |
+| mchid          | -          | 商户ID                                    |
+| key            | -          | 商户key                                   |
+| ssl_cert       | -          | 证书绝对路径                               |
+| ssl_key        | -          | 证书key绝对路径                            |
+| pay_notify_url | -          | 支付成功后回调地址                          |
+| cache_file     | -          | 存储微信accessToken相关重要票据信息的文件地址 |
+| log_dir        | -          | 日志文件存放绝对路径                        |
 
 ##1、发送消息
 ```
@@ -106,17 +121,3 @@ $menu->addClickButton('最新', 'news');
 $wechat->service('Menu')->create($menu);
 ```
 
-#三、配置项
-
-
-|   Name         | Default    | Desc         | 
-| -------------- | ---------- | ------------------------------------------|
-| appid          | -          | 微信appid                                 |
-| appsecret      | -          | app secret                                |
-| mchid          | -          | 商户ID                                    |
-| key            | -          | 商户key                                   |
-| ssl_cert       | -          | 证书绝对路径                              |
-| ssl_key        | -          | 证书key绝对路径                           |
-| pay_notify_url | -          | 支付成功后回调地址                        |
-| cache_file     | -          | 存储微信accessToken相关重要票据的文件地址 |
-| log_file       | -          | 日志文件地址                              |
