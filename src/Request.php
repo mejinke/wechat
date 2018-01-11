@@ -10,6 +10,8 @@ namespace Wechat;
 class Request
 {
 
+    private static $responseHeader;
+
     /**
      *
      * Get请求
@@ -25,8 +27,10 @@ class Request
         curl_setopt($ch, CURLOPT_TIMEOUT, $second);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HEADER, true);
         $result = curl_exec($ch);
+        $result = substr($result, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
+        static::$responseHeader = curl_getinfo($ch);
         curl_close($ch);
         return $result;
     }
@@ -49,7 +53,7 @@ class Request
         curl_setopt($ch, CURLOPT_TIMEOUT, $second);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_POST, true );
         curl_setopt($ch, CURLOPT_POSTFIELDS, is_array($data) ? json_encode($data, JSON_UNESCAPED_UNICODE) : $data);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -71,7 +75,16 @@ class Request
         }
 
         $result = curl_exec($ch);
+        $result = substr($result, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
+        static::$responseHeader = curl_getinfo($ch);
+
         curl_close($ch);
         return $result;
     }
+
+    public static function getResponseHeader()
+    {
+        return static::$responseHeader;
+    }
+
 }
