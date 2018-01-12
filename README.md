@@ -121,3 +121,8 @@ $menu->addClickButton('最新', 'news');
 $wechat->service('Menu')->create($menu);
 ```
 
+##5、多媒体
+```
+//下载多媒体资源
+$wechat->service('Media')->download('xxxxxxx-media_id', '保存路径');
+```
