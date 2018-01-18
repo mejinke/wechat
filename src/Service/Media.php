@@ -60,4 +60,34 @@ class Media extends Wechat
 
         return true;
     }
+
+    /**
+     *
+     * 下载Speex高清录音多媒体文件
+     *
+     * @param $media_id
+     * @param $path
+     *
+     * @return bool
+     */
+    public function downloadSpeex($media_id, $path)
+    {
+        $access_token = $this->getAccessToken();
+        $url = 'https://api.weixin.qq.com/cgi-bin/media/get/jssdk?access_token='.$access_token.'&media_id='.$media_id;
+
+        $result = Request::get($url);
+        $header = Request::getResponseHeader();
+
+        $path = $path.'/'.$media_id;
+
+        if ($header['content_type'] != 'voice/speex')
+        {
+            $this->exception(json_decode($result, true)['errmsg']);
+            return false;
+        }
+
+        file_put_contents($path.'.speex', $result);
+
+        return true;
+    }
 }

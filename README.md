@@ -125,4 +125,6 @@ $wechat->service('Menu')->create($menu);
 ```
 //下载多媒体资源
 $wechat->service('Media')->download('xxxxxxx-media_id', '保存路径');
+//下载speex格式高质量语音文件
+$wechat->service('Media')->downloadSpeex('xxxxxxx-media_id', '保存路径');
 ```
