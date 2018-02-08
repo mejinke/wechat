@@ -32,7 +32,10 @@ class Pay extends Wechat
     /**
      *
      * 创建订单
-     * 除被扫支付场景以外，商户系统先调用该接口在微信支付服务后台生成预支付交易单，返回正确的预支付交易回话标识后再按扫码、JSAPI、APP等不同场景生成交易串调起支付。
+     *
+     * 除被扫支付场景以外，商户系统先调用该接口在微信支付服务后台生成预支付交易单，
+     * 返回正确的预支付交易回话标识后再按扫码、JSAPI、APP等不同场景生成交易串调起支付。
+     *
      * @see https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
      *
      * @param PayOrder $order
@@ -167,6 +170,81 @@ class Pay extends Wechat
             }
 
             call_user_func($callback, $result->toArray());
+        }
+        catch (WechatException $e)
+        {
+            $this->exception($e->getMessage());
+        }
+    }
+
+    /**
+     *
+     * 申请退款
+     *
+     * 当交易发生之后一段时间内，由于买家或者卖家的原因需要退款时，卖家可以通过退款接口将支付款退还给买家，
+     * 微信支付将在收到退款请求并且验证成功之后，按照退款规则将支付款按原路退到买家帐号上。
+     * 注意：
+     * 1、交易时间超过一年的订单无法提交退款
+     * 2、微信支付退款支持单笔交易分多次退款，多次退款需要提交原支付订单的商户订单号和设置不同的退款单号。申请退款总金额不能超过订单金额。
+     * 一笔退款失败后重新提交，请不要更换退款单号，请使用原商户退款单号
+     * 3、请求频率限制：150qps，即每秒钟正常的申请退款请求次数不超过150次
+     * 错误或无效请求频率限制：6qps，即每秒钟异常或错误的退款申请请求不超过6次
+     * 4、每个支付订单的部分退款次数不能超过50次
+     *
+     * @see https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_4
+     *
+     * @param Component\PayRefund $refund
+     *
+     * @return bool
+     */
+    public function refund(Component\PayRefund $refund)
+    {
+        $url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+
+        //检测必填参数
+        if(!$refund->has('transaction_id') && $refund->has('out_trade_no'))
+        {
+            $this->exception("微信订单号(transaction_id)、商户订单号(out_trade_no)不能都为空");
+        }
+        else if(!$refund->has('out_refund_no'))
+        {
+            $this->exception("商户退款单号(out_refund_no)为必填项！");
+        }
+        else if(!$refund->has('total_fee'))
+        {
+            $this->exception("订单金额(total_fee)为必填项");
+        }
+        else if(!$refund->has('refund_fee'))
+        {
+            $this->exception("退款金额(refund_fee)为必填项");
+        }
+
+        $refund->setAppId($this->options['appid']);//公众账号ID
+        $refund->setMchId($this->options['mchid']);//商户号
+        $refund->setNonceStr($this->getNonceStr());//随机字符串
+
+        //签名
+        $refund->setSign($this->makeSign($refund->toArray()));
+
+        try
+        {
+            $res = Request::post($url, $refund->toXml(), ['ssl_cert' => $this->options['ssl_cert'], 'ssl_key' => $this->options['ssl_key']]);
+            $response = (new Component())->initFromXml($res);
+
+            if ($response == false)
+            {
+                $this->exception('申请退款 '.$res);
+            }
+            if ($response['return_code'] == 'FAIL')
+            {
+                $this->exception('申请退款 '.$response['return_msg']);
+            }
+            if ($response['result_code'] == 'FAIL')
+            {
+                $this->exception('申请退款 '.$response['err_code_des']);
+            }
+
+            return true;
         }
         catch (WechatException $e)
         {

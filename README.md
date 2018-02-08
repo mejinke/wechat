@@ -105,7 +105,22 @@ $pay->notifyProcess(function($data){
 
 ```
 
-##4、自定义菜单
+##4、退款
+
+```
+//创建退款组件
+$refund = new \Wechat\Component\PayRefund();
+$refund->setTransactionId('4200000074201802089227802768'); //微信生成的订单号，在支付通知中有返回
+//$refund->setsetOutTradeNo('1217752501201407033233368018'); //商户系统内部订单号,可选；和transactionId 二选一
+$refund->setOutRefundNo(date("YmdHis")); //商户唯一退款单号
+$refund->setTotalFee(10); //订单金额：分
+$refund->setRefundFee(10); //退款金额：分
+//发起退款
+$wechat->service('Pay')->refund($re);
+
+```
+
+##5、自定义菜单
 ```
 $menu = new \Wechat\Component\Menu();
 
@@ -121,7 +136,7 @@ $menu->addClickButton('最新', 'news');
 $wechat->service('Menu')->create($menu);
 ```
 
-##5、多媒体
+##6、多媒体
 ```
 //下载多媒体资源
 $wechat->service('Media')->download('xxxxxxx-media_id', '保存路径');
